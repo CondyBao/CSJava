@@ -84,11 +84,7 @@ public class MathClass {
     }
 
     public void roundToNearestWhole(double x) {
-        if (((x - ((int) x)) >= 0.5)) {
-            x++;
-        }
-        x = (int) x;
-        System.out.println(x);
+        System.out.println((int)(x+.5));
         // your code here
     }
 }
