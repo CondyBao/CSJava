@@ -1,6 +1,27 @@
 package intro;
 
 public class CodeWar {
+    public static String[] solution(String s) {
+        //Write your code here
+        int length = s.length();
+        int x1 = length / 2;
+        if (length % 2 == 1) x1++;
+        String[] solution = new String[x1];
+        for (int i = 0; i < x1; i++) {
+            solution[i] = "";
+        }
+        for (int i = 0; i < length / 2; i++) {
+            int a1 = i * 2, a2 = i * 2 + 1;
+            solution[i] += s.charAt(a1);
+            solution[i] += s.charAt(a2);
+        }
+        if (length % 2 == 1) {
+            solution[length / 2] += s.charAt(length - 1);
+            solution[length / 2] += "_";
+        }
+        return solution;
+    }
+
     public static int getCount (String str) {
         int vowelsCount = 0;
         // your code here
