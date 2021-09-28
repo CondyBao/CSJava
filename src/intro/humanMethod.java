@@ -3,10 +3,6 @@ package intro;
 public class humanMethod {
     private int age;
     private char gender;
-    private boolean vote = false;
-    private boolean shot = false;
-    private boolean dis = false;
-    private boolean teenager = false;
 
     public void setAge (int x) {
         age = x;
@@ -18,7 +14,6 @@ public class humanMethod {
 
     public void vote () {
         if (age >= 18) {
-            vote = true;
             System.out.println("Can Vote");
         }
         else {
@@ -28,7 +23,6 @@ public class humanMethod {
 
     public void tetanus () {
         if (age % 4 == 0) {
-            shot = true;
             System.out.println("Gets Shot");
         }
         else {
@@ -52,7 +46,6 @@ public class humanMethod {
 
     public void discount () {
         if (age > 65 || age < 12) {
-            dis = true;
             System.out.println("Gets Discount");
         }
         else {
@@ -62,7 +55,6 @@ public class humanMethod {
 
     public void teen () {
         if (age >= 12 && age <= 18) {
-            teenager = true;
             System.out.println("Teenager");
         }
         System.out.println("Not Teenager");
