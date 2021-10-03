@@ -57,7 +57,9 @@ public class humanMethod {
         if (age >= 12 && age <= 18) {
             System.out.println("Teenager");
         }
-        System.out.println("Not Teenager");
+        else {
+            System.out.println("Not Teenager");
+        }
     }
 
     public void team (humanMethod x) {
