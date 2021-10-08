@@ -33,7 +33,6 @@ public class Pong extends JPanel implements KeyListener {
 	// your instance variables here, I've given you a few 
 	private boolean up1, down1, up2, down2; 		// booleans to keep track of paddle movement
 	private boolean solo = false;
-	private boolean exit = false;
 	
 	// this method moves the ball at each timestep
 	public void move_ball() {
@@ -245,10 +244,21 @@ public class Pong extends JPanel implements KeyListener {
 	
 	// restarts the game, including scores
 	public void restart() {
-		exit = true;
 		p1_score = 0;
 		p2_score = 0;
-		run();
+		paddle1_y = 0;
+		paddle2_y = 0;
+		paddle1_state = 0;
+		paddle2_state = 0;
+		pong_x = (WIDTH - DIAM) / 2;
+		pong_y = (HEIGHT - DIAM) / 2;
+		pong_x_velocity = 3;
+		pong_y_velocity = 0;
+		pong_state = 0;
+		repaint();
+		try {
+			Thread.sleep(1000);
+		} catch (Exception ex) {}
 		// your code here
 	}
 
@@ -264,7 +274,6 @@ public class Pong extends JPanel implements KeyListener {
 		paddle2_y = 0;
 		paddle1_state = 0;
 		paddle2_state = 0;
-		exit = false;
 		pong_x = (WIDTH - DIAM) / 2;
 		pong_y = (HEIGHT - DIAM) / 2;
 		pong_x_velocity = 3;
@@ -277,7 +286,7 @@ public class Pong extends JPanel implements KeyListener {
 
 		// while(true) should rarely be used to avoid infinite loops, but here it is ok because
 		// closing the graphics window will end the program
-		while (!exit) {
+		while (true) {
 	
 			// draws the game
 			repaint();
