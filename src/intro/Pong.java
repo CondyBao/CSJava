@@ -32,7 +32,7 @@ public class Pong extends JPanel implements KeyListener {
 	
 	// your instance variables here, I've given you a few 
 	private boolean up1, down1, up2, down2; 		// booleans to keep track of paddle movement
-	private boolean solo = false;
+	private boolean solo = false; //boolean to keep track of playing mode
 	
 	// this method moves the ball at each timestep
 	public void move_ball() {
@@ -50,7 +50,7 @@ public class Pong extends JPanel implements KeyListener {
 	public void move_paddles() {
 		
 		// your code here //
-		if (up1 && paddle1_y >= 4) paddle1_y -= PADDLE_SPEED;
+		if (up1 && paddle1_y >= 4) paddle1_y -= PADDLE_SPEED; //
 		if (up2 && paddle2_y >= 4 && !solo) paddle2_y -= PADDLE_SPEED;
 		if (down1 && paddle1_y <= 500) paddle1_y += PADDLE_SPEED;
 		if (down2 && paddle2_y <= 500 && !solo) paddle2_y += PADDLE_SPEED;
@@ -62,7 +62,7 @@ public class Pong extends JPanel implements KeyListener {
 					}
 				}
 				else {
-					if (pong_y >= paddle2_y && pong_y <= (paddle2_y + PADDLE_HEIGHT)) {
+					if (pong_y <= (paddle2_y + PADDLE_HEIGHT)) {
 						paddle2_y -= PADDLE_SPEED;
 					}
 				}
@@ -186,7 +186,7 @@ public class Pong extends JPanel implements KeyListener {
 		g.drawString(str2, WIDTH*3/5, 20);
 	}
 
-	// defines what we want to happen if a keyboard button has 
+	// defines what we want to happen if a keyboard button has
 	// been pressed - you need to complete this
 	public void keyPressed(KeyEvent e) {
 		
