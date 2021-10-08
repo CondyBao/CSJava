@@ -20,7 +20,7 @@ public class ifStatements {
     }
 
     public void ulCase(char x) {
-        int c = (int)x;
+        int c = x;
         if (c > 64 && c < 91) {
             System.out.println("Upper Case");
         }

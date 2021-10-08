@@ -36,7 +36,7 @@ public class CodeWar {
 
     public static String SongDecoder (String song) {
         // Your code is here...
-        String newSong = new String("");
+        String newSong = "";
         int index = 0;
         boolean flag = true;
         for (int i = 0; i < song.length() - 2; i++) {
@@ -63,12 +63,12 @@ public class CodeWar {
                 break;
             }
         }
-        newSong = newSong.substring(index, newSong.length());
+        newSong = newSong.substring(index);
         return newSong;
     }
 
     public static void main(String[] args) {
         CodeWar tester = new CodeWar();
-        System.out.println(tester.SongDecoder("WUBWUBABCWUB"));
+        System.out.println(SongDecoder("WUBWUBABCWUB"));
     }
 }
