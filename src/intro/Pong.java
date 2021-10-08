@@ -108,6 +108,9 @@ public class Pong extends JPanel implements KeyListener {
 			turn *= -1;
 			pong_y_velocity += (pong_y - (paddle1_y + PADDLE_HEIGHT / 2)) / 5 * 5 * 0.3;
 			pong_x_velocity += Math.abs((pong_y - (paddle1_y + PADDLE_HEIGHT / 2))) / 5 * 5 * 0.3;
+			try {
+				Thread.sleep(10);
+			} catch (Exception ex) {}
 			pong_state ++;
 		}
 		if (pong_x >= (WIDTH - PADDLE_WIDTH - DIAM) && pong_y >= paddle2_y && pong_y <= (paddle2_y + PADDLE_HEIGHT)) {
@@ -122,7 +125,9 @@ public class Pong extends JPanel implements KeyListener {
 			}
 			turn *= -1;
 			pong_y_velocity += (pong_y - (paddle2_y + PADDLE_HEIGHT / 2) / 5 * 5) * 0.3;
-			pong_x_velocity += Math.abs((pong_y - (paddle2_y + PADDLE_HEIGHT / 2))) / 5 * 5 * 0.3;
+			try {
+				Thread.sleep(10);
+			} catch (Exception ex) {}
 			pong_state++;
 		}
 
@@ -135,7 +140,8 @@ public class Pong extends JPanel implements KeyListener {
 			turn *= -1;
 			pong_state++;
 		}
-		if (pong_x >= WIDTH - DIAM && pong_state % 6 != 5) {
+
+		if (pong_x >= (WIDTH - DIAM)) {
 			if (pong_state % 6 != 5) {
 				p1_score ++;
 				turn = -1;
