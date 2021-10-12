@@ -59,7 +59,7 @@ public class moreLoops {
     public void magicSquare (int x) {
         int num = 0, sum = 0;
         moreLoops runner2 = new moreLoops();
-        while (sum < x) {
+        while (sum < x) { //definite finite, while loop, linear
             if (runner2.magicSquarecheck(num)) {
                 sum++;
                 System.out.println(num);
@@ -79,7 +79,7 @@ public class moreLoops {
 
         if (!square) return false;
 
-        for (int i = 1; i <= (x + 1) / 2; i++) {
+        for (int i = 1; i <= (x + 1) / 2; i++) { //definite finite, linear, for loop
             int num = i * (i + 1) / 2;
             if (num == x) {
                 magic = true;
@@ -97,7 +97,7 @@ public class moreLoops {
             if (!grid[cnt]) {
                 i++;
                 if (i == x) System.out.println(cnt);
-                for (int j = cnt * 2; j < maxINT; j += cnt) {
+                for (int j = cnt * 2; j < maxINT; j += cnt) { //definite finite, for loop, linear
                     grid[j] = true;
                 }
             }
