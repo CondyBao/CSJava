@@ -3,7 +3,7 @@ package intro;
 import java.util.Scanner;
 
 public class moreLoops {
-    private final int maxINT = 10000;
+    private final int maxINT = 10000000;
     public void hiPrint(int a) {
         for (int i = 0; i < a; i++) { //definite finite, linear, for loop
             System.out.println("hi");
@@ -101,7 +101,10 @@ public class moreLoops {
                     grid[j] = true;
                 }
             }
-            cnt++;
+            if (cnt != 2) cnt+=2;
+            else {
+                cnt++;
+            }
         }
     }
 
@@ -110,32 +113,32 @@ public class moreLoops {
 
         moreLoops runner = new moreLoops();
         Scanner input = new Scanner(System.in);
-//        System.out.println("Input a number: ");
-//        x = input.nextInt();
-//        runner.hiPrint(x);
-//
-//        System.out.println("Input a number: ");
-//        x = input.nextInt();
-//        runner.factorial1(x);
-//        System.out.println(runner.factorial2(x));
-//
-//        System.out.println("Input two numbers: ");
-//        x = input.nextInt();
-//        y = input.nextInt();
-//        runner.gcd(x, y);
-//
-//        System.out.println("Input two numbers: ");
-//        x = input.nextInt();
-//        y = input.nextInt();
-//        runner.lcm(x, y);
-//
-//        System.out.println("Input a number: ");
-//        x = input.nextInt();
-//        runner.primeCheck(x);
-//
-//        System.out.println("Input a number: ");
-//        x = input.nextInt();
-//        runner.magicSquare(x);
+        System.out.println("Input a number: ");
+        x = input.nextInt();
+        runner.hiPrint(x);
+
+        System.out.println("Input a number: ");
+        x = input.nextInt();
+        runner.factorial1(x);
+        System.out.println(runner.factorial2(x));
+
+        System.out.println("Input two numbers: ");
+        x = input.nextInt();
+        y = input.nextInt();
+        runner.gcd(x, y);
+
+        System.out.println("Input two numbers: ");
+        x = input.nextInt();
+        y = input.nextInt();
+        runner.lcm(x, y);
+
+        System.out.println("Input a number: ");
+        x = input.nextInt();
+        runner.primeCheck(x);
+
+        System.out.println("Input a number: ");
+        x = input.nextInt();
+        runner.magicSquare(x);
 
         System.out.println("Input a number: ");
         x = input.nextInt();
