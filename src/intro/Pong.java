@@ -51,8 +51,8 @@ public class Pong extends JPanel implements KeyListener {
 		// your code here //
 		if (up1 && paddle1_y >= 0) paddle1_y -= PADDLE_SPEED; //moves the paddle up if the player demands and make sure it does not go out of the upper bound at the same time
 		if (up2 && paddle2_y >= 0 && !solo) paddle2_y -= PADDLE_SPEED; //moves the paddle up if the player demands and make sure it does not go out of the upper bound at the same time
-		if (down1 && paddle1_y <= 500) paddle1_y += PADDLE_SPEED; //moves the paddle down if the player demands and make sure it does not go out of the lower bound at the same time
-		if (down2 && paddle2_y <= 500 && !solo) paddle2_y += PADDLE_SPEED; //moves the paddle down if the player demands and make sure it does not go out of the lower bound at the same time
+		if (down1 && paddle1_y <= (HEIGHT - PADDLE_HEIGHT)) paddle1_y += PADDLE_SPEED; //moves the paddle down if the player demands and make sure it does not go out of the lower bound at the same time
+		if (down2 && paddle2_y <= (HEIGHT - PADDLE_HEIGHT) && !solo) paddle2_y += PADDLE_SPEED; //moves the paddle down if the player demands and make sure it does not go out of the lower bound at the same time
 		if (solo) { //AI
 			if (pong_y > paddle2_y) { //pong is lower than paddle
 				if (pong_state % 6 != 5) { //check if the ball is in dangerous state
@@ -187,7 +187,7 @@ public class Pong extends JPanel implements KeyListener {
 		g.drawString(str2, WIDTH*3/5, 20);
 		String notifier = "Don't hit the ball!";
 		if (pong_state % 6 == 5) {
-			g.drawString(notifier, WIDTH / 2 - 50, WINDOW_HEIGHT - 100);
+			g.drawString(notifier, WIDTH / 2 - 75, WINDOW_HEIGHT - 100); //make sure the banner is in the middle
 		}
 	}
 
