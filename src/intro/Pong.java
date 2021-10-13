@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 public class Pong extends JPanel implements KeyListener {
 	
 	// constants that are predefined and won't change as the program runs
@@ -50,32 +49,32 @@ public class Pong extends JPanel implements KeyListener {
 	public void move_paddles() {
 		
 		// your code here //
-		if (up1 && paddle1_y >= 4) paddle1_y -= PADDLE_SPEED; //
-		if (up2 && paddle2_y >= 4 && !solo) paddle2_y -= PADDLE_SPEED;
-		if (down1 && paddle1_y <= 500) paddle1_y += PADDLE_SPEED;
-		if (down2 && paddle2_y <= 500 && !solo) paddle2_y += PADDLE_SPEED;
-		if (solo) {
-			if (pong_y > paddle2_y) {
-				if (pong_state % 6 != 5) {
-					if (pong_y <=  HEIGHT - PADDLE_HEIGHT) {
-						paddle2_y += PADDLE_SPEED;
+		if (up1 && paddle1_y >= DIAM / 2) paddle1_y -= PADDLE_SPEED; //moves the paddle up if the player demands and make sure it does not go out of the upper bound at the same time
+		if (up2 && paddle2_y >= DIAM / 2 && !solo) paddle2_y -= PADDLE_SPEED; //moves the paddle up if the player demands and make sure it does not go out of the upper bound at the same time
+		if (down1 && paddle1_y <= 500) paddle1_y += PADDLE_SPEED; //moves the paddle down if the player demands and make sure it does not go out of the lower bound at the same time
+		if (down2 && paddle2_y <= 500 && !solo) paddle2_y += PADDLE_SPEED; //moves the paddle down if the player demands and make sure it does not go out of the lower bound at the same time
+		if (solo) { //AI
+			if (pong_y > paddle2_y) { //pong is lower than paddle
+				if (pong_state % 6 != 5) { //check if the ball is in dangerous state
+					if (pong_y <= (HEIGHT - PADDLE_HEIGHT)) {
+						paddle2_y += PADDLE_SPEED; //paddle goes down
 					}
 				}
 				else {
 					if (pong_y <= (paddle2_y + PADDLE_HEIGHT)) {
-						paddle2_y -= PADDLE_SPEED;
+						paddle2_y -= PADDLE_SPEED; //paddle goes up
 					}
 				}
 			}
 			else if (pong_y < paddle2_y) {
-				if (pong_state % 6 != 5) {
+				if (pong_state % 6 != 5) { //check if the ball is in dangerous state
 					if (pong_y >= 0) {
-						paddle2_y -= PADDLE_SPEED;
+						paddle2_y -= PADDLE_SPEED; //paddle goes up
 					}
 				}
 				else {
 					if (pong_y >= paddle2_y && pong_y <= (paddle2_y + PADDLE_HEIGHT)) {
-						paddle2_y += PADDLE_SPEED;
+						paddle2_y += PADDLE_SPEED; //paddle goes down
 					}
 				}
 			}
@@ -88,14 +87,14 @@ public class Pong extends JPanel implements KeyListener {
 	public void check_collisions() {
 		
 		// your code here
-		if (pong_y <= 0) {
+		if (pong_y <= 0) { //bounce upper bound
 			pong_y_velocity = Math.abs(pong_y_velocity);
 		}
-		if (pong_y >= HEIGHT) {
+		if (pong_y >= HEIGHT) { //bounce lower bound
 			pong_y_velocity = -Math.abs(pong_y_velocity);
 		}
 		if (pong_x <= PADDLE_WIDTH && pong_y >= paddle1_y && pong_y <= (paddle1_y + PADDLE_HEIGHT)) {
-			if (pong_state % 6 == 5) {
+			if (pong_state % 6 == 5) { //the other paddle scores if the ball hits paddle1 in dangerous state
 				paddle1_state = 1;
 				p2_score++;
 				repaint();
@@ -104,6 +103,7 @@ public class Pong extends JPanel implements KeyListener {
 				} catch (Exception ex) {}
 				run();
 			}
+			//bounce
 			turn *= -1;
 			pong_y_velocity += (pong_y - (paddle1_y + PADDLE_HEIGHT / 2)) / 5 * 5 * 0.3;
 			pong_x_velocity += Math.abs((pong_y - (paddle1_y + PADDLE_HEIGHT / 2))) / 5 * 5 * 0.3;
@@ -113,7 +113,7 @@ public class Pong extends JPanel implements KeyListener {
 			pong_state ++;
 		}
 		if (pong_x >= (WIDTH - PADDLE_WIDTH - DIAM) && pong_y >= paddle2_y && pong_y <= (paddle2_y + PADDLE_HEIGHT)) {
-			if (pong_state % 6 == 5) {
+			if (pong_state % 6 == 5) { //the other paddle scores if the ball hits paddle2 in dangerous state
 				paddle2_state = 1;
 				p1_score++;
 				repaint();
@@ -122,6 +122,7 @@ public class Pong extends JPanel implements KeyListener {
 				} catch (Exception ex) {}
 				run();
 			}
+			//bounce
 			turn *= -1;
 			pong_y_velocity += (pong_y - (paddle2_y + PADDLE_HEIGHT / 2) / 5 * 5) * 0.3;
 			try {
@@ -130,23 +131,23 @@ public class Pong extends JPanel implements KeyListener {
 			pong_state++;
 		}
 
-		if (pong_x <= 0) {
-			if (pong_state % 6 != 5) {
+		if (pong_x <= 0) { //hits left wall
+			if (pong_state % 6 != 5) { //the other players score if ball is not in dangerous state
 				p2_score ++;
 				turn = 1;
 				run();
 			}
-			turn *= -1;
+			turn *= -1; //bounce if ball is in dangerous state
 			pong_state++;
 		}
 
-		if (pong_x >= (WIDTH - DIAM)) {
-			if (pong_state % 6 != 5) {
+		if (pong_x >= (WIDTH - DIAM)) { //hits right wall
+			if (pong_state % 6 != 5) { //the other player score if ball is not in dangerous state
 				p1_score ++;
 				turn = -1;
 				run();
 			}
-			turn *= -1;
+			turn *= -1; //bounce if ball is in dangerous state
 			pong_state++;
 		}
 	}
@@ -163,25 +164,25 @@ public class Pong extends JPanel implements KeyListener {
 		// draw your rectangles and circles here
 		// .......
 		g.setColor(Color.orange);
-		if (paddle1_state == 1) {
+		if (paddle1_state == 1) { //paint the paddle red if the ball hits it when in dangerous state
 			g.setColor(Color.red);
 		}
 		g.fillRect(0, paddle1_y, PADDLE_WIDTH, PADDLE_HEIGHT);
 		g.setColor(Color.orange);
-		if (paddle2_state == 1) {
+		if (paddle2_state == 1) { //paint the paddle red if the ball hits it when in dangerous state
 			g.setColor(Color.red);
 		}
-		g.fillRect(WIDTH - PADDLE_WIDTH, paddle2_y, PADDLE_WIDTH, PADDLE_HEIGHT);
+		g.fillRect(WIDTH - PADDLE_WIDTH, paddle2_y, PADDLE_WIDTH, PADDLE_HEIGHT); //paint paddle
 		g.setColor(Color.pink);
-		if (pong_state % 6 == 5) {
+		if (pong_state % 6 == 5) { //paint paddle red if hits dangerous ball
 			g.setColor(Color.red);
 		}
-		g.fillOval(pong_x, pong_y, DIAM, DIAM);
+		g.fillOval(pong_x, pong_y, DIAM, DIAM); //paint the ball
 		// writes the score of the game - you just need to fill the scores in
 		Font f = new Font("Times", Font.BOLD, 14);
 		g.setFont(f);
 		g.setColor(Color.red);
-		String str1 = "P1 Score: " + p1_score, str2 = "P2 Score: " + p2_score;
+		String str1 = "P1 Score: " + p1_score, str2 = "P2 Score: " + p2_score; //paint score
 		g.drawString(str1, WIDTH/5, 20);
 		g.drawString(str2, WIDTH*3/5, 20);
 	}
@@ -244,6 +245,7 @@ public class Pong extends JPanel implements KeyListener {
 	
 	// restarts the game, including scores
 	public void restart() {
+		//reset, initiate
 		p1_score = 0;
 		p2_score = 0;
 		paddle1_y = 0;
@@ -270,6 +272,7 @@ public class Pong extends JPanel implements KeyListener {
 	
 	// this method runs the actual game.
 	public void run() {
+		//reset, initiate
 		paddle1_y = 0;
 		paddle2_y = 0;
 		paddle1_state = 0;
