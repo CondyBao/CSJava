@@ -49,8 +49,8 @@ public class Pong extends JPanel implements KeyListener {
 	public void move_paddles() {
 		
 		// your code here //
-		if (up1 && paddle1_y >= DIAM / 2) paddle1_y -= PADDLE_SPEED; //moves the paddle up if the player demands and make sure it does not go out of the upper bound at the same time
-		if (up2 && paddle2_y >= DIAM / 2 && !solo) paddle2_y -= PADDLE_SPEED; //moves the paddle up if the player demands and make sure it does not go out of the upper bound at the same time
+		if (up1 && paddle1_y >= 0) paddle1_y -= PADDLE_SPEED; //moves the paddle up if the player demands and make sure it does not go out of the upper bound at the same time
+		if (up2 && paddle2_y >= 0 && !solo) paddle2_y -= PADDLE_SPEED; //moves the paddle up if the player demands and make sure it does not go out of the upper bound at the same time
 		if (down1 && paddle1_y <= 500) paddle1_y += PADDLE_SPEED; //moves the paddle down if the player demands and make sure it does not go out of the lower bound at the same time
 		if (down2 && paddle2_y <= 500 && !solo) paddle2_y += PADDLE_SPEED; //moves the paddle down if the player demands and make sure it does not go out of the lower bound at the same time
 		if (solo) { //AI
@@ -185,6 +185,10 @@ public class Pong extends JPanel implements KeyListener {
 		String str1 = "P1 Score: " + p1_score, str2 = "P2 Score: " + p2_score; //paint score
 		g.drawString(str1, WIDTH/5, 20);
 		g.drawString(str2, WIDTH*3/5, 20);
+		String notifier = "Don't hit the ball!";
+		if (pong_state % 6 == 5) {
+			g.drawString(notifier, WIDTH / 2 - 50, WINDOW_HEIGHT - 100);
+		}
 	}
 
 	// defines what we want to happen if a keyboard button has
