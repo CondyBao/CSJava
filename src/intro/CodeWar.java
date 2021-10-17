@@ -67,6 +67,11 @@ public class CodeWar {
         return newSong;
     }
 
+    public static boolean stringEnds(String str, String ending) {
+        String end = str.substring(str.length() - ending.length(), str.length());
+        return end == ending;
+    }
+
     public static void main(String[] args) {
         CodeWar tester = new CodeWar();
         System.out.println(SongDecoder("WUBWUBABCWUB"));
