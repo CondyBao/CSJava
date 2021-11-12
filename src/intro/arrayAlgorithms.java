@@ -4,10 +4,9 @@ import java.util.Arrays;
 
 public class arrayAlgorithms {
     public static int largeInt(int[] array1) {
-        int maxValue = array1[0], index = 0;
+        int index = 0;
         for (int i = 1; i < array1.length; i++) {
-            if (maxValue < array1[i]) {
-                maxValue = array1[i];
+            if (array1[index] < array1[i]) {
                 index = i;
             }
         }
