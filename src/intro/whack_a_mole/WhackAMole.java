@@ -16,10 +16,10 @@ public class WhackAMole extends JPanel{
     Image bomb = Toolkit.getDefaultToolkit().createImage("bomb.png");
 
 	// creating variables
-    private final int textHeight = 35, holeNum = 10, moleNum = 3, timeChange = 5000, moleHeight = 80, moleWidth = 77;
+    private int textHeight = 35, holeNum = 10, moleNum = 3, timeChange = 5000, moleHeight = 80, moleWidth = 77;
     private int score, windowWidth = 1024, windowHeight = 500;
-    private final boolean [] molePlacement = new boolean[holeNum], bombPlacement = new boolean[holeNum], bonusPlacement = new boolean[holeNum];
-    private final int[][] map = new int[windowWidth][windowHeight], holePlacement = new int[holeNum][2];
+    private boolean [] molePlacement = new boolean[holeNum], bombPlacement = new boolean[holeNum], bonusPlacement = new boolean[holeNum];
+    private int[][] map = new int[windowWidth][windowHeight], holePlacement = new int[holeNum][2];
 
     public void updateHoles() {
         Random rand = new Random(); //generating random
