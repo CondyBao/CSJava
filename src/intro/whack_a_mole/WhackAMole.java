@@ -156,6 +156,7 @@ public class WhackAMole extends JPanel{
         JPanel canvas = new JPanel() {
             public void paint(Graphics g) {
                 draw(g);
+                scoreDisplay.setText("\t\tScore: " + score + "       " + "Don't Click on Bombs and Click on Gifts");
             }
         };
         canvas.setPreferredSize(new Dimension(windowWidth, windowHeight));
