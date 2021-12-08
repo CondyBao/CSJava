@@ -18,7 +18,7 @@ public class moreString {
         System.out.println();
     }
 
-    public static void longBlock (String a) {
+    public static void longBlock(String a) {
         int length = 1;
         for (int i = 0; i < a.length(); i++) {
             int newLength = 1;
@@ -28,12 +28,12 @@ public class moreString {
         System.out.println(length);
     }
 
-    public static void words (String a) {
+    public static void words(String a) {
         int cnt = 1;
         for (int i = 0; i < a.length(); i++) if (a.charAt(i) == ' ') cnt++;
         System.out.println(cnt);
     }
-
+    
     public static void main(String[] args) {
         end2("happy", "puppy");
         palindrome("helloolleh");
