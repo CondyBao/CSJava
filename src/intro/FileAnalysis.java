@@ -84,6 +84,7 @@ public class FileAnalysis {
 		HashMap<String, Integer> wordsCount = new HashMap<String, Integer>();
 		for (int i = 0; i < content.length(); i++) {
 			String curWord = splitWords(i);
+			if (curWord.length() < 1)continue;
 			i += curWord.length();
 			if (!wordsCount.containsKey(curWord)) wordsCount.put(curWord, 0);
 			wordsCount.put(curWord, wordsCount.get(curWord) + 1);
@@ -125,7 +126,10 @@ public class FileAnalysis {
 	private int numWords() {
 		int numWords = 1;
 		HashMap<String, Integer> wordCounts = wordsCount();
-		for (int i : wordCounts.values()) numWords += i;
+		for (String i : wordCounts.keySet()) {
+			numWords += wordCounts.get(i);
+			System.out.println(i + ": " + wordCounts.get(i));
+		}
 		return numWords;
 	}
 	
