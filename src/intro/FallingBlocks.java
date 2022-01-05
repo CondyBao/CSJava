@@ -6,9 +6,13 @@ import javax.swing.JPanel;
 
 public class FallingBlocks extends JPanel {
 	
-	private int WIDTH = 800, HEIGHT = 600, NUMBLOCKS = 50, NUMCOLORS = 5, BOXSIZE = 10;
-	private int[] arrayX = new int[NUMBLOCKS];
-	private int[] arrayY = new int[WIDTH];
+	private int WIDTH = 800;
+	private int HEIGHT = 600;
+	private final int NUMBLOCKS = 50;
+	private final int NUMCOLORS = 5;
+	private final int BOXSIZE = 10;
+	private final int[] arrayX = new int[NUMBLOCKS];
+	private final int[] arrayY = new int[WIDTH];
 
 	// instance variables (what kind of data structure should we use?)
 

@@ -13,8 +13,8 @@ public class RemixerFiller {
 	private String[] lyrics;
 	private String fileName = "lyrics.txt";	// this should match your txt file
 	
-	private String[] wordsToReplace = new String[]{"doo", "shark", "baby"};	// for part 2, if you finish the main project
-	private String[] newWords = new String[]{"boo", "fox", "puppy"};
+	private final String[] wordsToReplace = new String[]{"doo", "shark", "baby"};	// for part 2, if you finish the main project
+	private final String[] newWords = new String[]{"boo", "fox", "puppy"};
 	
 	public void remix() {
 		for (String i : lyrics) System.out.println(i + " ");
@@ -50,7 +50,7 @@ public class RemixerFiller {
 
 			remix();
 			
-			if (fileName.substring(fileName.length()-4).equals(".txt")) {
+			if (fileName.endsWith(".txt")) {
 				fileName = fileName.substring(0, fileName.length()-4);
 			}
 			

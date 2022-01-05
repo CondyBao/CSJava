@@ -68,7 +68,7 @@ public class CodeWar {
     }
 
     public static boolean stringEnds(String str, String ending) {
-        String end = str.substring(str.length() - ending.length(), str.length());
+        String end = str.substring(str.length() - ending.length());
         return end == ending;
     }
 

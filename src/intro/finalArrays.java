@@ -32,7 +32,7 @@ public class finalArrays {
         int[] ap = new int[128];
         int maxID = 0;
         for (char i : array1) {
-            ap[(int)i]++;
+            ap[i]++;
         }
         for (int i = 0; i < ap.length; i++) {
             if (ap[maxID] < ap[i]) {

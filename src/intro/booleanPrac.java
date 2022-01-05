@@ -21,7 +21,7 @@ public class booleanPrac {
     }
 
     public void charIf (char a, char b) {
-        int a1 = (int) a, b1 = (int) b, letter1 = 0, letter2 = 0;
+        int a1 = a, b1 = b, letter1 = 0, letter2 = 0;
         if (a1 >= 65 && a1 <= 90) {
             letter1 = a1 - 64;
         }

@@ -12,7 +12,9 @@ import javax.swing.JTextArea;
 
 public class jeopardyBoard {
 	
-	private int gridWidth = 800, gridHeight = 600, textHeight = 50;
+	private int gridWidth = 800;
+	private int gridHeight = 600;
+	private final int textHeight = 50;
 	
 	private final int NUMQUESTIONS = 4, NUMCATEGORIES = 6;
 	
