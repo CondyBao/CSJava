@@ -46,15 +46,11 @@ public class Photoshop extends Component {
         outputName = (horizontally?"h":"v") + "_flipped_" + outputName;
 		Color[][] copy = new Color[pixels.length][pixels[0].length];
         for (int i = 0; i < pixels.length; i++) {
-			for (int j = 0; j < pixels[i].length; j++) {
-				copy[i][j] = pixels[i][j];
-			}
+			System.arraycopy(pixels[i], 0, copy[i], 0, pixels[i].length);
 		}
 		if (!horizontally) {
 			for (int i = 0; i < pixels.length; i++) {
-				for (int j = 0; j < pixels[i].length; j++) {
-					pixels[i][j] = copy[pixels.length - i - 1][j];
-				}
+				System.arraycopy(copy[pixels.length - i - 1], 0, pixels[i], 0, pixels[i].length);
 			}
 		}
 		else {
@@ -87,11 +83,24 @@ public class Photoshop extends Component {
     // use this predefined color as the rgb value for the changed image.
     public void simplify() {
     
-    		// the list of colors to compare to. Feel free to change/add colors
-    		Color[] colorList = {Color.BLUE, Color.RED,Color.ORANGE, Color.MAGENTA,
+		// the list of colors to compare to. Feel free to change/add colors
+		Color[] colorList = {Color.BLUE, Color.RED,Color.ORANGE, Color.MAGENTA,
                 Color.BLACK, Color.WHITE, Color.GREEN, Color.YELLOW, Color.CYAN};
         outputName = "simplified_" + outputName;
-        
+        for (int i = 0; i < pixels.length; i++) {
+			for (int j = 0; j < pixels[i].length; j++) {
+				double best_color_value = 100000;
+				int best_color_id = 0;
+				for (int k = 0; k < colorList.length; k++) {
+					double distance_value = distance(pixels[i][j], colorList[k]);
+					if (distance_value < best_color_value) {
+						best_color_id = k;
+						best_color_value = distance_value;
+					}
+				}
+				pixels[i][j] = colorList[best_color_id];
+			}
+		}
         // your code here
          
     }
@@ -100,8 +109,8 @@ public class Photoshop extends Component {
     // between two colors.
     // use the 3d distance formula to calculate
     public double distance(Color c1, Color c2) {
-    	
-    		return 0;	// fix this
+		int r = c1.getRed(), g = c1.getGreen(), b = c1.getBlue(), new_r = c2.getRed(), new_g = c2.getGreen(), new_b = c2.getBlue();
+		return Math.sqrt(Math.pow(r - new_r, 2) + Math.pow(g - new_g, 2) + Math.pow(b - new_b, 2));
     }
     
     // this blurs the image
@@ -110,8 +119,25 @@ public class Photoshop extends Component {
     // divide this sum by 9, and set it as the rgb value for the blurred image
     public void blur() {
 		outputName = "blurred_" + outputName;
-		
-		// your code here
+		int[][] search = new int[][]{{-1, -1}, {-1, 0}, {-1, 1}, {1, 1}, {1, 0}, {1, -1}, {0, 1}, {0, -1}, {0, 0}};
+		Color[][] copy = new Color[pixels.length][pixels[0].length];
+		for (int i = 0; i < pixels.length; i++) {
+			System.arraycopy(pixels[i], 0, copy[i], 0, pixels[i].length);
+		}
+		for (int i = 0; i < pixels.length; i++) {
+			for (int j = 0; j < pixels[i].length; j++) {
+				int sum_r = 0, sum_g = 0, sum_b = 0, count = 0;
+				for (int[] ints : search) {
+					int new_x = i + ints[0], new_y = j + ints[1];
+					if (new_x < 0 || new_y < 0 || new_x >= pixels.length || new_y >= pixels[i].length) continue;
+					sum_r += copy[new_x][new_y].getRed();
+					sum_g += copy[new_x][new_y].getGreen();
+					sum_b += copy[new_x][new_y].getBlue();
+					count++;
+				}
+				pixels[i][j] = new Color(sum_r / count, sum_g / count, sum_b / count);
+			}
+		}
 	}
     
     // this highlights the edges in the image, turning everything else black. 
@@ -120,8 +146,26 @@ public class Photoshop extends Component {
     // this value is the rgb value for the 'edged' image
     public void edge() {
         outputName = "edged_" + outputName;
-
-        // your code here
+		int[][] search = new int[][]{{-1, -1}, {-1, 0}, {-1, 1}, {1, 1}, {1, 0}, {1, -1}, {0, 1}, {0, -1}};
+		Color[][] copy = new Color[pixels.length][pixels[0].length];
+		for (int i = 0; i < pixels.length; i++) {
+			System.arraycopy(pixels[i], 0, copy[i], 0, pixels[i].length);
+		}
+		for (int i = 0; i < pixels.length; i++) {
+			for (int j = 0; j < pixels[i].length; j++) {
+				int sum_r = 0, sum_g = 0, sum_b = 0, count = 0;
+				for (int[] ints : search) {
+					int new_x = i + ints[0], new_y = j + ints[1];
+					if (new_x < 0 || new_y < 0 || new_x >= pixels.length || new_y >= pixels[i].length) continue;
+					sum_r += copy[new_x][new_y].getRed();
+					sum_g += copy[new_x][new_y].getGreen();
+					sum_b += copy[new_x][new_y].getBlue();
+					count++;
+				}
+				int new_red = copy[i][j].getRed() * count - sum_r, new_green = copy[i][j].getGreen() * count - sum_g, new_blue = copy[i][j].getBlue() * count - sum_b;
+				pixels[i][j] = new Color(Math.max(0, Math.min(new_red, 255)), Math.max(0, Math.min(new_green, 255)), Math.max(0, Math.min(new_blue, 255)));
+			}
+		}
     }
     
     
