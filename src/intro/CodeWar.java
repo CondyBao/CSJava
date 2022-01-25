@@ -1,6 +1,51 @@
 package intro;
 
+import java.util.Arrays;
+
 public class CodeWar {
+    public static long nextSmaller(long n)
+    {
+        long copy = n;
+        int digits = 0, index = -1;
+        while (copy > 0) {
+            copy /= 10;
+            digits++;
+        }
+        copy = n;
+        long[] numbers = new long[digits];
+        while (copy > 0) {
+            numbers[++index]  = copy % 10;
+            copy /= 10;
+        }
+        System.out.println(Arrays.toString(numbers));
+        boolean swapped = false;
+        for (int i = 1; i < digits; i++) {
+            long max_min = -1;
+            int max_index = 0;
+            for (int j = 0; j < i; j++) {
+                if (numbers[j] == 0 && i == digits - 1) continue;
+                if (numbers[j] < numbers[i] && numbers[j] > max_min) {
+                    max_min = numbers[j];
+                    max_index = j;
+                    swapped = true;
+                }
+            }
+            if (i == max_index) continue;
+            numbers[i] += numbers[max_index];
+            numbers[max_index] = numbers[i] - numbers[max_index];
+            numbers[i] -= numbers[max_index];
+            if (swapped) break;
+        }
+        System.out.println(Arrays.toString(numbers));
+        n = 0;
+        for (int i = digits - 1; i >= 0; i--) {
+            n += numbers[i];
+            n *= 10;
+        }
+        n /= 10;
+        if (!swapped) return -1;
+        return n;
+    }
     public static String[] solution(String s) {
         //Write your code here
         int length = s.length();
@@ -74,6 +119,6 @@ public class CodeWar {
 
     public static void main(String[] args) {
         CodeWar tester = new CodeWar();
-        System.out.println(SongDecoder("WUBWUBABCWUB"));
+        System.out.println(nextSmaller(21));
     }
 }
