@@ -191,6 +191,8 @@ public class Photoshop extends Component {
 				}
 			}
 		}
+		if (filter_number == 3) {
+		}
 	}
     
     
@@ -221,9 +223,10 @@ public class Photoshop extends Component {
 			outputName = my_file.getName();
 			
 			// runs the manipulations determined by the user
-			System.out.println("Enter the manipulations you would like to run on the image.\nYour "
-					+ "choices are: brighten, flip, negate, blur, edge, filter, or simplify.\nEnter each "
-					+ "manipulation you'd like to run, then type in 'done'.");
+			System.out.println("""
+					Enter the manipulations you would like to run on the image.
+					Your choices are: brighten, flip, negate, blur, edge, filter, or simplify.
+					Enter each manipulation you'd like to run, then type in 'done'.""");
 			Scanner in = new Scanner(System.in);
 			String action = in.next().toLowerCase();
 			while (!action.equals("done")) {
