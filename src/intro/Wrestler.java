@@ -71,6 +71,7 @@ public class Wrestler {
 
     public void tagTeam(Wrestler[] ally, Wrestler[] opponents) {
         int totalWeight = 0, totalWeightOp = 0;
+        totalWeight += weight;
         for (Wrestler wrestler : ally) {
             wrestler.changeClothes(outfitColor);
             totalWeight += wrestler.getWeight();
@@ -81,6 +82,7 @@ public class Wrestler {
         }
         boolean win = totalWeightOp <= totalWeight;
         if (win) {
+            win();
             for (Wrestler wrestler : ally) {
                 wrestler.win();
             }
@@ -96,10 +98,24 @@ public class Wrestler {
     }
 
     public String toString() {
-        return "Wrestler " + name + " is " + weight + "pounds, he has " + winNum + "wins.";
+        return "Wrestler " + name + " is " + weight + " pounds, and he has " + winNum + " wins.";
     }
 
     public static void main(String[] args) {
-
+        Wrestler condy = new Wrestler("Condy", "blue", 130);
+        condy.lift(100);
+        Wrestler x = new Wrestler("anon", "black", 100);
+        condy.fight(x);
+        Wrestler ally[] = new Wrestler[5], oppo[] = new Wrestler[6];
+        oppo[0] = x;
+        for (int i = 0; i < 5; i++) {
+            Wrestler x1 = new Wrestler("anon#" + (i + 1), "white", 120 + i);
+            Wrestler x2  = new Wrestler("anon#" + (i + 6), "red", 100 + i);
+            ally[i] = x1;
+            oppo[i + 1] = x2;
+        }
+        condy.tagTeam(ally, oppo);
+        System.out.println(condy);
+        System.out.println(x);
     }
 }
