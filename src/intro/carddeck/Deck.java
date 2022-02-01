@@ -20,10 +20,9 @@ public class Deck {
         for (int i = 0; i < cards.length; i++) {
             for (int j = i + 1; j < cards.length; j++) {
                 if (cards[i].getNum() > cards[j].getNum()) {
-                    String i_copy = cards[i].getSuit();
-                    int i_num = cards[i].getNum();
+                    Card copy_i = cards[i];
                     cards[i] = new Card(cards[j].getNum(), cards[j].getSuit());
-                    cards[j] = new Card(i_num, i_copy);
+                    cards[j] = copy_i;
                 }
             }
         }
@@ -32,14 +31,22 @@ public class Deck {
     public void shuffle() {
         Card[] copy = new Card[52];
         Random rand = new Random();
-        int upperbound = rand.nextInt(5, 10);
-        for (int k = 0; k < upperbound; k++) {
+        for (int k = 0; k < 5; k++) {
+            boolean[] used = new boolean[52];
+            for (int i = 0; i < 52; i++) used[i] = false;
             System.arraycopy(cards, 0, copy, 0, 52);
             for (int i = 0; i < cards.length; i++) {
-                if (i % 2 == 0) {
-                    cards[i] = copy[i / 2];
-                } else {
-                    cards[i] = copy[i + 25 - i / 2];
+                if (used[i]) continue;
+                if (rand.nextInt(5) != 1) {
+                    int change = i;
+                    while (change == i && !used[change]) {
+                        change = rand.nextInt(52);
+                    }
+                    used[change] = true;
+                    used[i] = true;
+                    Card copy_change = cards[change];
+                    cards[change] = cards[i];
+                    cards[i] = copy_change;
                 }
             }
         }
