@@ -304,7 +304,7 @@ public class Photoshop extends Component {
 		        			m.invoke(this, brightness);
 		    			}
 						else if (action.equals("filter")) {
-							System.out.println("enter filter: Grayscale(enter 0), Deep Red(enter 1), Deep Blue(enter 2)");
+							System.out.println("enter filter: Grayscale(enter 0), Deep Red(enter 1), Deep Blue(enter 2), Mosaic(enter 3)");
 							int filter_action = in.nextInt();
 							Method m = getClass().getDeclaredMethod(action, int.class);
 							m.invoke(this, filter_action);
