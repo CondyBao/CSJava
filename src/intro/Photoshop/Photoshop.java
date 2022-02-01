@@ -3,8 +3,7 @@ package intro.Photoshop;
 // an image
 // filler code by Mr. David
 
-import java.awt.Color;
-import java.awt.Component;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -20,11 +19,13 @@ public class Photoshop extends Component {
 	// the name of the output file. will be determined by which methods are called
     private String outputName;
     
-    // the 2d array of colors representing the image
-    private Color[][] pixels;
-    
     // the width and height of the image 
-    private int w,h;
+    private int w, h, mosaicCount = 7;
+
+	// the 2d array of colors representing the image
+	private Color[][] pixels;
+
+	private Color[][][] mosaicPixels;
     
 
     // this method increases each color's rgb value by a given amount.
@@ -167,7 +168,7 @@ public class Photoshop extends Component {
 		}
     }
 
-	public void filter(int filter_number) {
+	public void filter(int filter_number) throws IOException {
 		outputName = "filtered_" + outputName;
 		if (filter_number == 0) { // Grayscale Filter
 			for (int i = 0; i < pixels.length; i++) { // go through row
@@ -192,6 +193,71 @@ public class Photoshop extends Component {
 			}
 		}
 		if (filter_number == 3) {
+			int sampleWidth = 10, sampleHeight = 10;
+			for (int i = 0; i < pixels.length / sampleWidth; i++) {
+				for (int j = 0; j < pixels[i].length / sampleHeight; j++) {
+					BufferedImage[] mosaicImages = new BufferedImage[mosaicCount];
+					Color[] mosaicColors = new Color[mosaicCount];
+					Image newimage = ImageIO.read(new File("images/mosaicImages/mosaic1.jpg"));
+					newimage = newimage.getScaledInstance(sampleWidth, sampleHeight, Image.SCALE_DEFAULT);
+					mosaicImages[0] = new BufferedImage(newimage.getWidth(null), newimage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+					newimage = ImageIO.read(new File("images/mosaicImages/mosaic2.jpg"));
+					newimage = newimage.getScaledInstance(sampleWidth, sampleHeight, Image.SCALE_DEFAULT);
+					mosaicImages[1] = new BufferedImage(newimage.getWidth(null), newimage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+					newimage = ImageIO.read(new File("images/mosaicImages/mosaic3.jpg"));
+					newimage = newimage.getScaledInstance(sampleWidth, sampleHeight, Image.SCALE_DEFAULT);
+					mosaicImages[2] = new BufferedImage(newimage.getWidth(null), newimage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+					newimage = ImageIO.read(new File("images/mosaicImages/mosaic4.jpg"));
+					newimage = newimage.getScaledInstance(sampleWidth, sampleHeight, Image.SCALE_DEFAULT);
+					mosaicImages[3] = new BufferedImage(newimage.getWidth(null), newimage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+					newimage = ImageIO.read(new File("images/mosaicImages/mosaic5.jpg"));
+					newimage = newimage.getScaledInstance(sampleWidth, sampleHeight, Image.SCALE_DEFAULT);
+					mosaicImages[4] = new BufferedImage(newimage.getWidth(null), newimage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+					newimage = ImageIO.read(new File("images/mosaicImages/mosaic6.jpg"));
+					newimage = newimage.getScaledInstance(sampleWidth, sampleHeight, Image.SCALE_DEFAULT);
+					mosaicImages[5] = new BufferedImage(newimage.getWidth(null), newimage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+					newimage = ImageIO.read(new File("images/mosaicImages/mosaic7.jpg"));
+					newimage = newimage.getScaledInstance(sampleWidth, sampleHeight, Image.SCALE_DEFAULT);
+					mosaicImages[6] = new BufferedImage(newimage.getWidth(null), newimage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+					for (int k = 0; k < mosaicCount; k++) {
+						Color[][] tempColor = new Color[mosaicImages[k].getWidth()][mosaicImages[k].getHeight()];
+						int sum_r = 0, sum_b = 0, sum_g = 0;
+						for (int k2 = 0; k2 < mosaicImages[k].getWidth(); k2++) {
+							for (int k3 = 0; k3 < mosaicImages[k].getHeight(); k3++) {
+								tempColor[k2][k3] = new Color(mosaicImages[k].getRGB(k2, k3));
+								sum_r += tempColor[k2][k3].getRed();
+								sum_g += tempColor[k2][k3].getGreen();
+								sum_b += tempColor[k2][k3].getBlue();
+							}
+						}
+						mosaicColors[k] = new Color(sum_r / (mosaicImages[k].getHeight() * mosaicImages[k].getWidth()), sum_g / (mosaicImages[k].getHeight() * mosaicImages[k].getWidth()), sum_b / (mosaicImages[k].getHeight() * mosaicImages[k].getWidth()));
+					}
+					int x = sampleWidth * i, y = sampleHeight * j;
+					int sum_r = 0, sum_b = 0, sum_g = 0;
+					for (int k = 0; k < sampleWidth; k++) {
+						for (int l = 0; l < sampleHeight; l++) {
+							sum_r += pixels[k + x][l + y].getRed();
+							sum_b += pixels[k + x][l + y].getBlue();
+							sum_g += pixels[k + x][l + y].getGreen();
+						}
+					}
+					Color tempColor = new Color(sum_r / (sampleHeight * sampleWidth), sum_g / (sampleWidth * sampleHeight), sum_b / (sampleWidth * sampleHeight));
+					double bestDistance = 20000;
+					int imageID = 0;
+					for (int k = 0; k < mosaicCount; k++) {
+						double tempDistance = distance(mosaicColors[k], tempColor);
+						if (tempDistance < bestDistance) {
+							imageID = k;
+							bestDistance = tempDistance;
+						}
+					}
+					for (int k = 0; k < sampleWidth; k++) {
+						for (int k2 = 0; k2 < sampleHeight; k2++) {
+							pixels[k + x][k2 + y] = new Color(mosaicImages[imageID].getRGB(k, k2));
+						}
+					}
+				}
+			}
 		}
 	}
     
