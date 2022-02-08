@@ -1,6 +1,6 @@
 package intro.bankAccount;
 
-public class greatAccount extends BankAccount{
+public class GreatAccount extends BankAccount{
     private int month = 0;
     private boolean withdrawed = false;
     private int withdraw_thisMonth = 0;
@@ -25,16 +25,16 @@ public class greatAccount extends BankAccount{
         }
     }
 
-    public greatAccount(String name, int money) {
+    public GreatAccount(String name, int money) {
         super(name, money);
     }
 
     public static void main(String[] args) {
         BankAccount basicAccount = new BankAccount("condy", 1000);
         BankAccount basicAccount2 = new BankAccount("condy#2");
-        interestAccount interestAcc = new interestAccount("condy#3", 100000, 0.2);
-        creditCard creditAcc = new creditCard("condy#4", 1000, 0.4);
-        greatAccount greatAcc = new greatAccount("condy#5", 100000);
+        InterestAccount interestAcc = new InterestAccount("condy#3", 100000, 0.2);
+        CreditCard creditAcc = new CreditCard("condy#4", 1000, 0.4);
+        GreatAccount greatAcc = new GreatAccount("condy#5", 100000);
         basicAccount.deposit(10000);
         basicAccount.withdraw(100);
         basicAccount2.deposit(1000);

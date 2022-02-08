@@ -1,6 +1,6 @@
 package intro.bankAccount;
 
-public class creditCard extends interestAccount{
+public class CreditCard extends InterestAccount {
     public void addInterest() {
         double depositAmount = getMoney() * getInterestRate();
         deposit(depositAmount - 10);
@@ -13,7 +13,7 @@ public class creditCard extends interestAccount{
         else deposit(-n);
     }
 
-    public creditCard(String name, int money, double interestRate) {
+    public CreditCard(String name, int money, double interestRate) {
         super(name, money, interestRate);
     }
 }
