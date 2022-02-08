@@ -194,44 +194,44 @@ public class Photoshop extends Component {
 		}
 		if (filter_number == 3) {
 			int sampleWidth = 10, sampleHeight = 10;
+			BufferedImage[] mosaicImages = new BufferedImage[mosaicCount];
+			Color[] mosaicColors = new Color[mosaicCount];
+			Image newimage = ImageIO.read(new File("images/mosaicImages/mosaic1.jpg"));
+			newimage = newimage.getScaledInstance(sampleWidth, sampleHeight, Image.SCALE_DEFAULT);
+			mosaicImages[0] = new BufferedImage(newimage.getWidth(null), newimage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+			newimage = ImageIO.read(new File("images/mosaicImages/mosaic2.jpg"));
+			newimage = newimage.getScaledInstance(sampleWidth, sampleHeight, Image.SCALE_DEFAULT);
+			mosaicImages[1] = new BufferedImage(newimage.getWidth(null), newimage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+			newimage = ImageIO.read(new File("images/mosaicImages/mosaic3.jpg"));
+			newimage = newimage.getScaledInstance(sampleWidth, sampleHeight, Image.SCALE_DEFAULT);
+			mosaicImages[2] = new BufferedImage(newimage.getWidth(null), newimage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+			newimage = ImageIO.read(new File("images/mosaicImages/mosaic4.jpg"));
+			newimage = newimage.getScaledInstance(sampleWidth, sampleHeight, Image.SCALE_DEFAULT);
+			mosaicImages[3] = new BufferedImage(newimage.getWidth(null), newimage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+			newimage = ImageIO.read(new File("images/mosaicImages/mosaic5.jpg"));
+			newimage = newimage.getScaledInstance(sampleWidth, sampleHeight, Image.SCALE_DEFAULT);
+			mosaicImages[4] = new BufferedImage(newimage.getWidth(null), newimage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+			newimage = ImageIO.read(new File("images/mosaicImages/mosaic6.jpg"));
+			newimage = newimage.getScaledInstance(sampleWidth, sampleHeight, Image.SCALE_DEFAULT);
+			mosaicImages[5] = new BufferedImage(newimage.getWidth(null), newimage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+			newimage = ImageIO.read(new File("images/mosaicImages/mosaic7.jpg"));
+			newimage = newimage.getScaledInstance(sampleWidth, sampleHeight, Image.SCALE_DEFAULT);
+			mosaicImages[6] = new BufferedImage(newimage.getWidth(null), newimage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+			for (int k = 0; k < mosaicCount; k++) {
+				Color[][] tempColor = new Color[mosaicImages[k].getWidth()][mosaicImages[k].getHeight()];
+				int sum_r = 0, sum_b = 0, sum_g = 0;
+				for (int k2 = 0; k2 < mosaicImages[k].getWidth(); k2++) {
+					for (int k3 = 0; k3 < mosaicImages[k].getHeight(); k3++) {
+						tempColor[k2][k3] = new Color(mosaicImages[k].getRGB(k2, k3));
+						sum_r += tempColor[k2][k3].getRed();
+						sum_g += tempColor[k2][k3].getGreen();
+						sum_b += tempColor[k2][k3].getBlue();
+					}
+				}
+				mosaicColors[k] = new Color(sum_r / (mosaicImages[k].getHeight() * mosaicImages[k].getWidth()), sum_g / (mosaicImages[k].getHeight() * mosaicImages[k].getWidth()), sum_b / (mosaicImages[k].getHeight() * mosaicImages[k].getWidth()));
+			}
 			for (int i = 0; i < pixels.length / sampleWidth; i++) {
 				for (int j = 0; j < pixels[i].length / sampleHeight; j++) {
-					BufferedImage[] mosaicImages = new BufferedImage[mosaicCount];
-					Color[] mosaicColors = new Color[mosaicCount];
-					Image newimage = ImageIO.read(new File("images/mosaicImages/mosaic1.jpg"));
-					newimage = newimage.getScaledInstance(sampleWidth, sampleHeight, Image.SCALE_DEFAULT);
-					mosaicImages[0] = new BufferedImage(newimage.getWidth(null), newimage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-					newimage = ImageIO.read(new File("images/mosaicImages/mosaic2.jpg"));
-					newimage = newimage.getScaledInstance(sampleWidth, sampleHeight, Image.SCALE_DEFAULT);
-					mosaicImages[1] = new BufferedImage(newimage.getWidth(null), newimage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-					newimage = ImageIO.read(new File("images/mosaicImages/mosaic3.jpg"));
-					newimage = newimage.getScaledInstance(sampleWidth, sampleHeight, Image.SCALE_DEFAULT);
-					mosaicImages[2] = new BufferedImage(newimage.getWidth(null), newimage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-					newimage = ImageIO.read(new File("images/mosaicImages/mosaic4.jpg"));
-					newimage = newimage.getScaledInstance(sampleWidth, sampleHeight, Image.SCALE_DEFAULT);
-					mosaicImages[3] = new BufferedImage(newimage.getWidth(null), newimage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-					newimage = ImageIO.read(new File("images/mosaicImages/mosaic5.jpg"));
-					newimage = newimage.getScaledInstance(sampleWidth, sampleHeight, Image.SCALE_DEFAULT);
-					mosaicImages[4] = new BufferedImage(newimage.getWidth(null), newimage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-					newimage = ImageIO.read(new File("images/mosaicImages/mosaic6.jpg"));
-					newimage = newimage.getScaledInstance(sampleWidth, sampleHeight, Image.SCALE_DEFAULT);
-					mosaicImages[5] = new BufferedImage(newimage.getWidth(null), newimage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-					newimage = ImageIO.read(new File("images/mosaicImages/mosaic7.jpg"));
-					newimage = newimage.getScaledInstance(sampleWidth, sampleHeight, Image.SCALE_DEFAULT);
-					mosaicImages[6] = new BufferedImage(newimage.getWidth(null), newimage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-					for (int k = 0; k < mosaicCount; k++) {
-						Color[][] tempColor = new Color[mosaicImages[k].getWidth()][mosaicImages[k].getHeight()];
-						int sum_r = 0, sum_b = 0, sum_g = 0;
-						for (int k2 = 0; k2 < mosaicImages[k].getWidth(); k2++) {
-							for (int k3 = 0; k3 < mosaicImages[k].getHeight(); k3++) {
-								tempColor[k2][k3] = new Color(mosaicImages[k].getRGB(k2, k3));
-								sum_r += tempColor[k2][k3].getRed();
-								sum_g += tempColor[k2][k3].getGreen();
-								sum_b += tempColor[k2][k3].getBlue();
-							}
-						}
-						mosaicColors[k] = new Color(sum_r / (mosaicImages[k].getHeight() * mosaicImages[k].getWidth()), sum_g / (mosaicImages[k].getHeight() * mosaicImages[k].getWidth()), sum_b / (mosaicImages[k].getHeight() * mosaicImages[k].getWidth()));
-					}
 					int x = sampleWidth * i, y = sampleHeight * j;
 					int sum_r = 0, sum_b = 0, sum_g = 0;
 					for (int k = 0; k < sampleWidth; k++) {
