@@ -12,13 +12,16 @@ public class CollisionBall extends BouncingBall{
         int thisy = getY();
         int thisrad = getRad();
         for (Ball i : ball_list) {
+            if (i == this) continue;
             int newx = i.getX();
             int newy = i.getY();
             int newrad = i.getRad();
-            if ((thisx + getRad() * 2 >= newx) && (thisx <= newx)) {
-                if ((thisy + getRad() * 2 >= newy) && (thisy <= newy)) {
+            if ((thisx + getRad() >= newx) && (thisx <= newx)) {
+                if ((thisy + getRad() >= newy) && (thisy <= newy)) {
                     setXSpeed(-getXSpeed());
                     setYSpeed(-getYSpeed());
+                    i.setXSpeed(-getXSpeed());
+                    i.setYSpeed(-getYSpeed());
                 }
             }
         }
