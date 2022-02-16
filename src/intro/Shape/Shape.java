@@ -9,8 +9,8 @@ public class Shape {
 	// simple method - should just move the 
 	// shape by the shift amounts
 	public void move(int xshift, int yshift) {
-		
-		// your code here
+		x += xshift;
+		y += yshift;
 	}
 	
 	// DON'T TOUCH BELOW CODE

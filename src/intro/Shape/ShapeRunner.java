@@ -7,17 +7,24 @@ import javax.swing.JFrame;
 public class ShapeRunner {
 	
 	private Shape[] shapes;
+
+	private int timer = 0;
 	
 	// this method should move all the shapes in the list
 	public void moveShapes() {
-		
-		// your code here
+		for (Shape i : shapes) {
+			if (timer % 100 < 50) i.move(3, 3);
+			else i.move(-3, -3);
+		}
+		timer++;
 	}
 	
 	// fill in your shape list here
 	public void setup() {
-		
-		// your code here
+		Rect a = new Rect(100, 100, 10, 20);
+		Oval b = new Oval(50, 50, 30, 40);
+		Line c = new Line(150, 0, 10, 20);
+		shapes = new Shape[] {a, b, c};
 	}
 	
 	// DON'T TOUCH BELOW CODE
