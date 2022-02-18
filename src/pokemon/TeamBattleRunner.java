@@ -1,4 +1,4 @@
-package intro.pokemon;
+package pokemon;
 import java.awt.Graphics;
 import javax.swing.JOptionPane;
 

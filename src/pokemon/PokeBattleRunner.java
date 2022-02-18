@@ -1,4 +1,4 @@
-package intro.pokemon;
+package pokemon;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -37,7 +37,7 @@ public class PokeBattleRunner {
 	
 	public PokeBattleRunner() {
 		for (int i = 0; i < types.length; i++) 
-			attackImgs[i] = new ImageIcon(getClass().getClassLoader().getResource("resources/"+types[i]+".png")).getImage();			
+			attackImgs[i] = new ImageIcon(getClass().getClassLoader().getResource("resources/"+types[i]+".png")).getImage();
 		
 		getClasses();
 		initGraphics();

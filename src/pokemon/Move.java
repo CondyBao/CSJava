@@ -1,4 +1,4 @@
-package intro.pokemon;
+package pokemon;
 
 public class Move {
 

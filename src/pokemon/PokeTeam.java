@@ -1,4 +1,4 @@
-package intro.pokemon;
+package pokemon;
 import java.util.ArrayList;
 
 public abstract class PokeTeam {
