@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class TeamCondy extends PokeTeam{
     public TeamCondy() {
-        super("hi");
+        super("PokeyPokemon");
     }
 
     @Override
