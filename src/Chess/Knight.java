@@ -35,7 +35,7 @@ public class Knight extends Piece {
         ArrayList<int[]> moves = getMoves(board, r, c);
         boolean flag = false;
         for (int[] m : moves) {
-            int newr = r + m[0], newc = c + m[1];
+            int newr = m[0], newc = m[1];
             if (newr == kingr && newc == kingc) {
                 flag = true;
                 break;

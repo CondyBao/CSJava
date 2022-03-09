@@ -23,8 +23,8 @@ public class Board {
 		for (int i = 0; i < 8; i++) for (int j = 0; j < 8; j++) board[i][j] = new Empty();
 		board[0][4] = new King(1, images.get("BlackKing"));
 		board[7][4] = new King(0, images.get("WhiteKing"));
-		kingPositions[0] = new int[]{0, 4};
-		kingPositions[1] = new int[] {7, 4};
+		kingPositions[1] = new int[]{0, 4};
+		kingPositions[0] = new int[] {7, 4};
 		board[0][0] = new Rook(1, images.get("BlackRook"));
 		board[0][7] = new Rook(1, images.get("BlackRook"));
 		board[7][0] = new Rook(0, images.get("WhiteRook"));
@@ -53,10 +53,11 @@ public class Board {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				board[i][j].draw(g, j * sw, i * sw);
+				g.setColor(Color.BLACK);
 				if (board[i][j] == curr) {
 					g.setColor(Color.YELLOW);
-					g.drawRect(j * sw, i * sw, sw, sw);
 				}
+				g.drawRect(j * sw, i * sw, sw, sw);
 			}
 		}
 		
@@ -87,7 +88,7 @@ public class Board {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				int curTeam = board[i][j].getTeam(), opTeam = (curTeam + 1) % 2;
-				if (board[i][j].check(kingPositions[opTeam][0], kingPositions[opTeam][1], i, j, this)) return true;
+				if (board[i][j].check(kingPositions[opTeam][0], kingPositions[opTeam][1], j, i, this)) return true;
 			}
 		}
 		return false;

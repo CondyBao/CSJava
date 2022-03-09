@@ -25,7 +25,7 @@ public abstract class Piece {
 	public abstract ArrayList<int[]> getMoves(Board board, int r, int c);
 	
 	public void draw(Graphics g, int x, int y) {
-		g.drawImage(img, x, y, Chess.IMG_WIDTH, Chess.IMG_WIDTH, null);
+		g.drawImage(img, x, y, Chess.SQUARE_WIDTH, Chess.SQUARE_WIDTH, null);
 	}
 	
 	// returns whether this is an empty square

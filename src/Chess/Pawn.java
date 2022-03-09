@@ -19,35 +19,35 @@ public class Pawn extends Piece{
 		ArrayList<int[]> moves = new ArrayList<int[]>();
 		
 		int i;
-		if (getTeam() == 0)
+		if (getTeam() == 1)
 			i = 1;
 		else
 			i = -1;
-		
-		if (c+i < 8 && c+i >= 0 && board.getBoard()[r][c+i].getTeam() == -1) {
-			int[] move = {r,c+i};
-			moves.add(move);
+
+		if (r == 1 && getTeam() == 1 && board.getBoard()[r + 1][c].getTeam() == -1 && board.getBoard()[r + 2][c].getTeam() == -1) {
+			moves.add(new int[]{r + 2, c});
 		}
-		if (getTeam() == 0 && c == 1 && board.getBoard()[r][c+2].getTeam() == -1 && board.getBoard()[r][c+1].getTeam() == -1) {
-			int[] move = {r, c+2};
-			moves.add(move);
+
+		if (r == 6 && getTeam() == 0 && board.getBoard()[r - 1][c].getTeam() == -1 && board.getBoard()[r - 2][c].getTeam() == -1) {
+			moves.add(new int[]{r - 2, c});
 		}
-		if (getTeam() == 1 && c == 6 && board.getBoard()[r][c-2].getTeam() == -1 && board.getBoard()[r][c-1].getTeam() == -1) {
-			int[] move = {r, c-2};
-			moves.add(move);
+
+		if (r + i < 8 && r + i >= 0 && board.getBoard()[r + i][c].getTeam() == -1) {
+			moves.add(new int[]{r + i, c});
 		}
-		if (r+1 < 8 && c+i < 8 && c+i >= 0)
-			if (board.getBoard()[r + 1][c+i].getTeam() == (getTeam()+1)%2) {
-				int[] move = {r+1,c+i};
-				moves.add(move);
+
+		if (r + i < 8 && r + i >= 0 && c + 1 < 8) {
+			if (board.getBoard()[r + i][c + 1].getTeam() == (getTeam() + 1) % 2) {
+				moves.add(new int[]{r + i, c + 1});
 			}
-		if (r-1 >= 0 && c+i < 8 && c+i >= 0)
-			if (board.getBoard()[r -1][c+i].getTeam() == (getTeam()+1)%2) {
-				int[] move = {r-1,c+i};
-				moves.add(move);
+		}
+
+		if (r + i < 8 && r + i >= 0 && c - 1 >= 0) {
+			if (board.getBoard()[r + i][c - 1].getTeam() == (getTeam() + 1) % 2) {
+				moves.add(new int[]{r + i, c - 1});
 			}
-		
-		
+		}
+
 		return moves;
 	}
 
@@ -60,13 +60,13 @@ public class Pawn extends Piece{
 
 	@Override
 	public boolean check(int kingr, int kingc, int r, int c, Board board) {
-		if (getTeam() == 0) {
+		if (getTeam() == 1) {
 			if (kingr - r == 1)
 				if (Math.abs(kingc - c) == 1)
 					return true;
 		}
-		if (getTeam() == 1) {
-			if (kingc - r == -1)
+		if (getTeam() == 0) {
+			if (kingr - r == -1)
 				if (Math.abs(kingc - c) == 1)
 					return true;
 		}
