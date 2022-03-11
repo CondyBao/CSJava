@@ -19,7 +19,7 @@ public class Board {
 		
 		// loads the images into a map
 		HashMap<String, Image> images = loadImages();
-		
+		// initializing the board
 		for (int i = 0; i < 8; i++) for (int j = 0; j < 8; j++) board[i][j] = new Empty();
 		board[0][4] = new King(1, images.get("BlackKing"));
 		board[7][4] = new King(0, images.get("WhiteKing"));
@@ -52,12 +52,16 @@ public class Board {
 		
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				board[i][j].draw(g, j * sw, i * sw);
-				g.setColor(Color.BLACK);
-				if (board[i][j] == curr) {
-					g.setColor(Color.YELLOW);
+				if (i % 2 != j % 2) { // fill every other grid with a different color
+					g.setColor(Color.GREEN);
+					g.fillRect(j * sw, i * sw, sw, sw);
 				}
-				g.drawRect(j * sw, i * sw, sw, sw);
+				board[i][j].draw(g, j * sw, i * sw);
+				g.setColor(Color.BLACK); // set the borders to black
+				if (board[i][j] == curr) {
+					g.setColor(Color.YELLOW); //if the current piece is selected, set the color to yellow
+				}
+				g.drawRect(j * sw, i * sw, sw, sw); // draw the grid
 			}
 		}
 		
@@ -67,31 +71,31 @@ public class Board {
 	// in the vacated space with an empty square.
 	// returns 0 for a normal move, 1 for a check move, 2 for a checkmate move
 	public int move(int r, int c, int newR, int newC) {
-		int curTeam = board[r][c].getTeam(), opTeam = (curTeam + 1) % 2;
-		if (newR == kingPositions[opTeam][0] && newC == kingPositions[opTeam][1]) return 2;
-		if (r == kingPositions[0][0] && c == kingPositions[0][1]) {
+		int curTeam = board[r][c].getTeam(), opTeam = (curTeam + 1) % 2; // number the teams
+		if (newR == kingPositions[opTeam][0] && newC == kingPositions[opTeam][1]) return 2; // if the opposite king is taken, checkmate
+		if (r == kingPositions[0][0] && c == kingPositions[0][1]) { // if it is the white king, update the white king's position
 			kingPositions[0][0] = newR;
 			kingPositions[0][1] = newC;
 		}
-		if (r == kingPositions[1][0] && c == kingPositions[1][1]) {
+		if (r == kingPositions[1][0] && c == kingPositions[1][1]) { // if it is the black king, update the black king's position
 			kingPositions[1][0] = newR;
 			kingPositions[1][1] = newC;
 		}
-		board[newR][newC] = board[r][c];
-		board[r][c] = new Empty();
-		if (check()) return 1;
-		return 0;
+		board[newR][newC] = board[r][c]; // update the board
+		board[r][c] = new Empty(); // set the original position to an empty piece
+		if (check()) return 1; // check if there is any checks after the move, return 1 if there is
+		return 0; // normal move
 	}
 	
 	// determines if the either team is in check.
 	public boolean check() {
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < 8; i++) { // go through every piece
 			for (int j = 0; j < 8; j++) {
-				int curTeam = board[i][j].getTeam(), opTeam = (curTeam + 1) % 2;
-				if (board[i][j].check(kingPositions[opTeam][0], kingPositions[opTeam][1], j, i, this)) return true;
+				int curTeam = board[i][j].getTeam(), opTeam = (curTeam + 1) % 2; // number the teams
+				if (board[i][j].check(kingPositions[opTeam][0], kingPositions[opTeam][1], i, j, this)) return true; // return true if there is a check
 			}
 		}
-		return false;
+		return false; // return false if there is no check after checking all the grids
 	}
 	
 	

@@ -7,17 +7,17 @@ public class Queen extends Piece{
 
     public Queen(int turn, Image img) {
         super(turn, img);
-    }
+    } // inheritance constructor
 
     @Override
     public ArrayList<int[]> getMoves(Board board, int r, int c) {
         ArrayList<int[]> moves = new ArrayList<int[]>();
-        boolean eligibleF = true, eligibleB = true;
+        boolean eligibleF = true, eligibleB = true; // rook's movements, refer to rook for comments
         for (int i = 1; i < 8; i++) { // vertical moves
             boolean temp1 = true, temp2 = true;
             int newr = r + i, newbr = r - i;// newr->move forward, newbr->move backward
-            if (newr < 0 || newr > 7) temp1 = true;
-            if (newbr < 0 || newbr > 7) temp2 = true;
+            if (newr < 0 || newr > 7) temp1 = false;
+            if (newbr < 0 || newbr > 7) temp2 = false;
             if (temp1 && board.getBoard()[newr][c].getTeam() == this.getTeam()) eligibleF = false;
             if (temp2 && board.getBoard()[newbr][c].getTeam() == this.getTeam()) eligibleB = false;
             if (temp1 && eligibleF) {
@@ -49,8 +49,8 @@ public class Queen extends Piece{
         }
         eligibleF = true;
         eligibleB = true;
-        boolean eligibleF2 = true, eligibleB2 = true;
-        for (int i = 1; i < 8; i++) { // check diagonals
+        boolean eligibleF2 = true, eligibleB2 = true; // bishops' movements, refer to bishop for comments
+        for (int i = 1; i < 8; i++) {
             boolean temp1 = true, temp2 = true, temp3 = true, temp4 = true;
             int newr = r + i, newc = c + i, newbr = r - i, newbc = c - i;
             if (newr < 0 || newr > 7 || newc < 0 || newc > 7) temp1 = false;
@@ -87,7 +87,7 @@ public class Queen extends Piece{
     }
 
     @Override
-    public boolean check(int kingr, int kingc, int r, int c, Board board) {
+    public boolean check(int kingr, int kingc, int r, int c, Board board) { // comments refer to the bishop's check method
         ArrayList<int[]> moves = getMoves(board, r, c);
         boolean flag = false;
         for (int[] m : moves) {

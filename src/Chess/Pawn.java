@@ -20,35 +20,35 @@ public class Pawn extends Piece{
 		
 		int i;
 		if (getTeam() == 1)
-			i = 1;
+			i = 1; // if it is black, it can only move down
 		else
-			i = -1;
+			i = -1; // if it is white, it can only move up
 
-		if (r == 1 && getTeam() == 1 && board.getBoard()[r + 1][c].getTeam() == -1 && board.getBoard()[r + 2][c].getTeam() == -1) {
-			moves.add(new int[]{r + 2, c});
+		if (r == 1 && getTeam() == 1 && board.getBoard()[r + 1][c].getTeam() == -1 && board.getBoard()[r + 2][c].getTeam() == -1) { // check if it is the first move for black pawns
+			moves.add(new int[]{r + 2, c}); // add move: two steps down
 		}
 
-		if (r == 6 && getTeam() == 0 && board.getBoard()[r - 1][c].getTeam() == -1 && board.getBoard()[r - 2][c].getTeam() == -1) {
-			moves.add(new int[]{r - 2, c});
+		if (r == 6 && getTeam() == 0 && board.getBoard()[r - 1][c].getTeam() == -1 && board.getBoard()[r - 2][c].getTeam() == -1) { // check if it is the first move for white pawns
+			moves.add(new int[]{r - 2, c}); // add move: two steps up
 		}
 
-		if (r + i < 8 && r + i >= 0 && board.getBoard()[r + i][c].getTeam() == -1) {
-			moves.add(new int[]{r + i, c});
+		if (r + i < 8 && r + i >= 0 && board.getBoard()[r + i][c].getTeam() == -1) { // check if the new coordinate is in bound and empty
+			moves.add(new int[]{r + i, c}); // move up/down one step depending on the pawn's color(refer to earlier)
 		}
-
+		// check if the two diagonal steps for a pawn has an opponent's piece and are in bound
 		if (r + i < 8 && r + i >= 0 && c + 1 < 8) {
 			if (board.getBoard()[r + i][c + 1].getTeam() == (getTeam() + 1) % 2) {
-				moves.add(new int[]{r + i, c + 1});
+				moves.add(new int[]{r + i, c + 1}); // add move one diagonal step
 			}
 		}
 
 		if (r + i < 8 && r + i >= 0 && c - 1 >= 0) {
 			if (board.getBoard()[r + i][c - 1].getTeam() == (getTeam() + 1) % 2) {
-				moves.add(new int[]{r + i, c - 1});
+				moves.add(new int[]{r + i, c - 1}); // add the other diagonal step (refer to the last if statement)
 			}
 		}
 
-		return moves;
+		return moves; // return all the moves
 	}
 
 
@@ -59,18 +59,18 @@ public class Pawn extends Piece{
 	}
 
 	@Override
-	public boolean check(int kingr, int kingc, int r, int c, Board board) {
-		if (getTeam() == 1) {
+	public boolean check(int kingr, int kingc, int r, int c, Board board) { // check method for pawn
+		if (getTeam() == 1) { // if it is black team
 			if (kingr - r == 1)
-				if (Math.abs(kingc - c) == 1)
-					return true;
+				if (Math.abs(kingc - c) == 1) // the white king is on either diagonal steps
+					return true; // it is a check
 		}
-		if (getTeam() == 0) {
+		if (getTeam() == 0) { // if it is white team
 			if (kingr - r == -1)
-				if (Math.abs(kingc - c) == 1)
-					return true;
+				if (Math.abs(kingc - c) == 1) // the black king is on either diagonal steps
+					return true;  // it is a check
 		}
-		return false;
+		return false; // it is not a check
 	}
 
 }
