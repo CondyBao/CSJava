@@ -1,7 +1,6 @@
 package intro;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Lists_References {
     public static String concatenate(ArrayList<Character> x) {
@@ -22,10 +21,10 @@ public class Lists_References {
         }
     }
 
-    public static void addElements(ArrayList<Integer> a, ArrayList<Integer> b) {
-        for (int i = 1; i <= a.size(); i++) {
+    public static void addElements(int[] a, ArrayList<Integer> b) {
+        for (int i = 1; i <= a.length; i++) {
             for (int j = 0; j < i; j++) {
-                b.add(a.get(j));
+                b.add(a[j]);
             }
         }
     }
@@ -37,7 +36,7 @@ public class Lists_References {
         a.add('l');
         a.add('l');
         a.add('o');
-        String b = "";
+        String b;
         b = concatenate(a);
         System.out.println(b);
         ArrayList<Double> c = new ArrayList<Double>();
@@ -48,11 +47,7 @@ public class Lists_References {
         c.add(19.0);
         average(c);
         System.out.println(c);
-        ArrayList<Integer> d = new ArrayList<Integer>();
-        d.add(3);
-        d.add(1);
-        d.add(4);
-        d.add(2);
+        int[] d = new int[]{3, 1, 4, 2};
         ArrayList<Integer> e = new ArrayList<Integer>();
         addElements(d, e);
         System.out.println(e);
