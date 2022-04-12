@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.AbstractAction;
 import javax.swing.JFrame;
@@ -17,17 +18,17 @@ public class SpaceInvaders {
 	// constants for various aspects of the game
 	// feel free to change them to make the game harder/easier
 	private final int WIDTH = 1000, HEIGHT = 700, NUMALIENS = 20, ALIENSPEED = 4, LASERSPEED = 7, PLAYERSPEED = 6,
-			LASERWIDTH = 8, LASERHEIGHT = 25, PLAYERENEMYWIDTH = 50, PLAYERENEMYHEIGHT = 35;
+			LASERWIDTH = 8, LASERHEIGHT = 25, PLAYERENEMYWIDTH = 50, PLAYERENEMYHEIGHT = 35, PLAYERHEIGHT = 55, PLAYERWIDTH = 70, ROWS = 2;
 	
 	// determines the difficulty. The closer to 1.0, the easier the game 
 	private final double DIFFICULTY = .99;
 	
 	// our list of aliens
-	private ArrayList<SpaceThing> aliens = new ArrayList<SpaceThing>();
+	private ArrayList<Alien> aliens = new ArrayList<Alien>();
 	
 	// our list of list of lasers for both the player and the aliens
-	private ArrayList<Laser> alienLasers = new ArrayList<Laser>();
-	private ArrayList<Laser> playerLasers = new ArrayList<Laser>();
+	private ArrayList<AlienLaser> alienLasers = new ArrayList<AlienLaser>();
+	private ArrayList<PlayerLaser> playerLasers = new ArrayList<PlayerLaser>();
 	
 	// the player
 	private SpaceThing player;
@@ -43,8 +44,19 @@ public class SpaceInvaders {
 	// move the aliens, the lasers, and the player. Loops aliens when necessary, 
 	// and randomly shoots lasers from the aliens
 	public void move() {
-		
-		// your code here
+		for (Alien i : aliens) {
+			i.moveX(ALIENSPEED);
+			if (i.getX() > WIDTH - PLAYERENEMYWIDTH) {
+				i.moveX(-WIDTH);
+			}
+		}
+		player.moveX(playerSpeed);
+		for (AlienLaser i : alienLasers) {
+			i.move();
+		}
+		for (PlayerLaser i : playerLasers) {
+			i.move();
+		}
 	}
 	
 	// check for collisions between alien lasers and the player
@@ -57,8 +69,13 @@ public class SpaceInvaders {
 	
 	// set up your variables, lists, etc here
 	public void setup() {
-		
-		// your code here
+		player = new Player(PLAYERSPEED, WIDTH / 2 - PLAYERWIDTH, HEIGHT - PLAYERHEIGHT * 2, PLAYERWIDTH, PLAYERHEIGHT, "playerCannon.png");
+		int XInterval = WIDTH / (NUMALIENS / ROWS);
+		for (int i = 0; i < NUMALIENS; i++) {
+			int yTimes = 0;
+			yTimes += i / (NUMALIENS / ROWS);
+			aliens.add(new Alien(XInterval * (i % (NUMALIENS / ROWS)) + PLAYERENEMYWIDTH / 2, (int)(PLAYERENEMYHEIGHT + yTimes * (PLAYERENEMYHEIGHT * 1.5)), PLAYERENEMYWIDTH, PLAYERENEMYHEIGHT, "alien.png"));
+		}
 	}
 	
 	// fires a player laser. if there are currently less than 4 lasers on the screen,
@@ -68,7 +85,7 @@ public class SpaceInvaders {
 		if (playerLasers.size() == 4) {
 			playerLasers.remove(0);
 		}
-		playerLasers.add(new Laser(player.x, player.y));
+		playerLasers.add(new PlayerLaser(player.x, player.y));
 	}
 	
 	// draw a black background along with your lasers, aliens, and player here
@@ -77,7 +94,19 @@ public class SpaceInvaders {
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
 		// your code here
-		
+		for (SpaceThing i : aliens) {
+			i.draw(g);
+		}
+
+		player.draw(g);
+
+		for (AlienLaser i : alienLasers) {
+			i.draw(g);
+		}
+
+		for (PlayerLaser i : playerLasers) {
+			i.draw(g);
+		}
 
 		g.setColor(Color.red);
 		g.drawString("Lives: "+lives, 15, 15);
@@ -90,7 +119,7 @@ public class SpaceInvaders {
 	
 	// ******* DON'T TOUCH BELOW CODE ************//
 	
-	public SpaceInvaders() {
+	public SpaceInvaders() throws IOException {
 		setup();
 		JFrame frame = new JFrame();
 		frame.setSize(WIDTH, HEIGHT);
@@ -156,7 +185,7 @@ public class SpaceInvaders {
 		}
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		new SpaceInvaders();
 	}
 }

@@ -20,7 +20,7 @@ public class SpaceThing extends Rectangle {
 		super(x, y, w, h);
 		
 		try {
-			img = ImageIO.read(new File(imgName)).getScaledInstance(w, h, Image.SCALE_SMOOTH);
+			img = ImageIO.read(new File("src/SpaceInvaders/Images/" + imgName)).getScaledInstance(w, h, Image.SCALE_SMOOTH);
 		} catch (IOException e) {
 			System.out.println("Image file not found");
 		}
