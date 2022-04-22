@@ -26,7 +26,10 @@ public class Translator {
         int index = 0;
         String eng = "";
         for (String line = in.readLine(); line != null; line = in.readLine()) {
-            if (index % 2 == 0) eng = line.trim();
+            if (index % 2 == 0) {
+                if (index == 0) eng = line.trim().substring(1, line.length());
+                else eng = line.trim();
+            }
             else Eng2Ara.put(eng, line.trim());
             index++;
         }
