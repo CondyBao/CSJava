@@ -1,5 +1,6 @@
 package intro;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.Scanner;
@@ -45,11 +46,11 @@ public class moreMaps {
         }
     }
 
-    public static int fibonacciSolver(int x, HashMap<Integer, Integer> fibonacci) {
-        if (fibonacci.containsKey(x)) return x;
-        int xVal = fibonacciSolver(x - 1, fibonacci) + fibonacciSolver(x - 2, fibonacci);
+    public static BigInteger fibonacciSolver(BigInteger x, HashMap<BigInteger, BigInteger> fibonacci) {
+        if (fibonacci.containsKey(x)) return fibonacci.get(x);
+        BigInteger xVal = fibonacciSolver(x.subtract(BigInteger.valueOf(1)), fibonacci).add(fibonacciSolver(x.subtract(BigInteger.valueOf(2)), fibonacci));
         fibonacci.put(x, xVal);
-        return xVal;
+        return fibonacci.get(x);
     }
 
     public static void main(String[] args) {
@@ -64,9 +65,9 @@ public class moreMaps {
         people.put("Anika", "Ryan");
         people.put("Yumna", "Cooper");
         target(people);
-        HashMap<Integer, Integer> fibonacci = new HashMap<>();
-        fibonacci.put(1, 1);
-        fibonacci.put(2, 1);
-        System.out.println(fibonacciSolver(10, fibonacci));
+        HashMap<BigInteger, BigInteger> fibonacci = new HashMap<>();
+        fibonacci.put(BigInteger.valueOf(1), BigInteger.valueOf(1));
+        fibonacci.put(BigInteger.valueOf(2), BigInteger.valueOf(1));
+        System.out.println(fibonacciSolver(BigInteger.valueOf(1000), fibonacci));
     }
 }
