@@ -27,7 +27,7 @@ public class SpaceInvaders {
 	private int special_attack;
 
 	// determines the difficulty. The closer to 1.0, the easier the game 
-	private final double DIFFICULTY = .97;
+	private final double DIFFICULTY = .99;
 
 	private boolean shielded = false;
 	private int shield_used = 0;
@@ -163,6 +163,7 @@ public class SpaceInvaders {
 	// adds to the list. if there are 4 lasers on the screen, removes a laser and 
 	// replaces it with this new one
 	public void fireLaser() {
+		if (paused || won || lost) return;
 		if (playerLasers.size() == 4) { // if there are already four lasers
 			playerLasers.remove(0); // remove the first laser
 		}
@@ -302,7 +303,7 @@ public class SpaceInvaders {
 	}
 	private class PauseAction extends AbstractAction {
 		public void actionPerformed(ActionEvent e) {
-			paused = !paused;
+			if (!won && !lost)paused = !paused;
 		}
 	}
 
