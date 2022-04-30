@@ -8,21 +8,19 @@ public class PQ<auto> {
     HashMap<auto, Integer> map = new HashMap<>();
 
     public void push(auto element, int p) {
-        int l = 0, r = pq.size() - 1, ans = 0;
-        boolean found = false;
-        while (l <= r) {
-            int mid = (l + r) / 2;
-            if (pq.get(mid).p <= p) {
-                l = mid + 1;
-                ans = mid;
-                found = true;
-            } else r = mid - 1;
-        }
-        if (!found) {
-            ans = pq.size();
-        }
         if (map.containsKey(element)) {
             pq.remove((int)map.get(element));
+        }
+        int l = 0, r = pq.size() - 1, ans = pq.size();
+        while (l <= r) {
+            int mid = (l + r) / 2;
+            if (pq.get(mid).p > p) {
+                r = mid - 1;
+                ans = mid;
+            } else l = mid + 1;
+        }
+        for (int i = ans; i < pq.size(); i++) {
+            map.put(pq.get(i).element, map.get(pq.get(i).element) + 1);
         }
         map.put(element, ans);
         pq.add(ans, new E(element, p));
