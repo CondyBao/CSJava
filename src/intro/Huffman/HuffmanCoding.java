@@ -15,7 +15,6 @@ public class HuffmanCoding {
         String text = FileRead();
         buildTree();
         String hash = compress(text);
-        System.out.println();
         FileWrite("hash.txt", hash);
         String result = decompress(hash);
         FileWrite("result.txt", result);
@@ -86,7 +85,6 @@ public class HuffmanCoding {
                 int decimal = Integer.parseInt(cur_num.toString(), 2);
                 hash.append((char) (decimal));
                 time = 0;
-                System.out.print(cur_num + " ");
                 cur_num = new StringBuilder();
             }
             index++;
@@ -101,7 +99,6 @@ public class HuffmanCoding {
             hash.append((char) decimal);
         }
         hash.append((char) add_zero);
-        System.out.println(add_zero);
         return hash.toString();
     }
 
@@ -118,7 +115,6 @@ public class HuffmanCoding {
             for (int j = 0; j < add_length; j++) {
                 cur_bi.insert(0, "0");
             }
-            System.out.print(cur_bi + " ");
             decompressed.append(cur_bi);
         }
         StringBuilder cur = new StringBuilder();
