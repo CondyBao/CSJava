@@ -5,19 +5,19 @@ public class Branch<auto> {
 
     int freq;
 
-    Branch<auto> l, r;
+    Branch<auto> l, r; // left and right child
 
     public String toString() {
         return info + ": " + freq;
     }
 
-    public Branch(auto info, int freq) {
+    public Branch(auto info, int freq) { // first constructor for leaf nodes
         l = r = null;
         this.info = info;
         this.freq = freq;
     }
 
-    public Branch(int freq, Branch<auto> l, Branch<auto> r) {
+    public Branch(int freq, Branch<auto> l, Branch<auto> r) { // second constructor for sum nodes
         info = null;
         this.freq = freq;
         this.l = l;
