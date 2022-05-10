@@ -16,7 +16,7 @@ public class HuffmanCoding {
     public HuffmanCoding() throws IOException {
         String text = FileRead(); // Read File
         if (Objects.equals(text, "")) return; // if the text file is empty then stop
-        if (freq.size() == 1) huffmanTable.put(text.charAt(0), "0"); // if there is only one type of character in the text file
+        if (freq.size() == 1) huffmanTable.put(text.charAt(0), "1"); // if there is only one type of character in the text file
         else buildTree(); // Build Huffman Tree
         String hash = compress(text); // Compress the file
         String result = decompress(hash); // Decompress hash
