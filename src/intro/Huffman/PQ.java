@@ -27,11 +27,11 @@ public class PQ<auto> {
     }
 
     public String toString() {
-        String returnString = "";
+        StringBuilder returnString = new StringBuilder();
         for (Node i : pq) {
-            returnString += i.toString() + "\n";
+            returnString.append(i.toString()).append("\n");
         }
-        return returnString;
+        return returnString.toString();
     }
 
     public Node top() {
