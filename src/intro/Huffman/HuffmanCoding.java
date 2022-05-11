@@ -1,5 +1,7 @@
 package intro.Huffman;
 
+import javax.swing.*;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -14,7 +16,9 @@ public class HuffmanCoding {
     HashMap<Character, String> huffmanTable = new HashMap<>(); // record the huffman values of each character
 
     public HuffmanCoding() throws IOException {
-        String text = FileRead("test.txt"); // Read File
+        JFileChooser fc = new JFileChooser(new File("src/intro/Huffman")); // get the file chooser
+        fc.showOpenDialog(null);// Open the file chooser dialog
+        String text = FileRead(fc.getSelectedFile().getName()); // Read File
         if (Objects.equals(text, "")) return; // if the text file is empty then stop
         if (freq.size() == 1) huffmanTable.put(text.charAt(0), "1"); // if there is only one type of character in the text file
         else buildTree(); // Build Huffman Tree
