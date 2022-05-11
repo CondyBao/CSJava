@@ -14,17 +14,52 @@ public class HuffmanCoding {
     HashMap<Character, String> huffmanTable = new HashMap<>(); // record the huffman values of each character
 
     public HuffmanCoding() throws IOException {
-        String text = FileRead(); // Read File
+        String text = FileRead("test.txt"); // Read File
         if (Objects.equals(text, "")) return; // if the text file is empty then stop
         if (freq.size() == 1) huffmanTable.put(text.charAt(0), "1"); // if there is only one type of character in the text file
         else buildTree(); // Build Huffman Tree
         String hash = compress(text); // Compress the file
+        StringBuilder huffman = new StringBuilder(); // create the output huffman table string
+        for (char c : huffmanTable.keySet()) {
+            huffman.append(c).append(": ").append(huffmanTable.get(c)).append("\n"); // append the huffman table to the string
+        }
+        FileWrite("compressed.txt", "Hash:\n" + hash + "\nHuffman Table:\n" + huffman); // Output Compressed File
+        String compressed_file = FileRead("compressed.txt");
+        hash = readTree(compressed_file); // build new tree based off of compressed file
         String result = decompress(hash); // Decompress hash
-        FileWrite("result.txt", "Hash:" + hash + "\n\n" + "Result:" + result); // Output File
+        FileWrite("result.txt", result); // Output File
     }
 
-    public String FileRead() throws IOException {
-        String fileName = "test.txt"; // The name of the input file
+    public String readTree(String file) {
+        StringBuilder hash_string = new StringBuilder(); /// create new hash string
+        file = file.substring("Hash:\n".length()); // remove redundant letters
+        int index = -1; // index for iteration
+        while (true) { // loop to get the hash string
+            index++; // move on to the next index
+            hash_string.append(file.charAt(index)); // append the current character
+            if (hash_string.length() >= "\nHuffman Table:\n".length()) { // if there are enough characters
+                if (hash_string.substring(hash_string.length() - "\nHuffman Table:\n".length()).equals("\nHuffman Table:\n")) { // see if it is the end of the file
+                    hash_string = new StringBuilder(hash_string.substring(0, hash_string.length() - "\nHuffman Table:\n".length())); // cut the string
+                    break; // break
+                }
+            }
+        }
+        huffmanTable = new HashMap<>(); // empty the hashmap
+        while (index < file.length() - 1) {
+            index++; // ignore the return key every line
+            char key = file.charAt(index); // create the key for map
+            StringBuilder value = new StringBuilder(); // create an empty value string
+            index += ": ".length() + 1; // ignore the unnecessary information
+            while (file.charAt(index) != '\n') { // while it is still in the same line
+                value.append(file.charAt(index)); // add the current value to the value string
+                index++; // go to the next index
+            }
+            huffmanTable.put(key, value.toString()); // put the new information to the huffman table
+        }
+        return hash_string.toString(); // remove the hash string
+    }
+
+    public String FileRead(String fileName) throws IOException {
         StringBuilder text = new StringBuilder(); // text content
         FileReader reader; // declare reader
         try {
