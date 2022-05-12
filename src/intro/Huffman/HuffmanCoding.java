@@ -81,6 +81,7 @@ public class HuffmanCoding {
             else freq.put(cur, 1); // start a new entry inf frequency
             ascii = reader.read(); // read the next character
         }
+        reader.close(); // close the reader
         return text.toString(); // return the text file
     }
 
