@@ -109,7 +109,7 @@ public class Board {
 		
 		for (String p : pieces) {
 			for (String color : new String[] {"Black", "White"}) {
-				Image img = Toolkit.getDefaultToolkit().getImage("Images/" + color + p + ".png");	
+				Image img = Toolkit.getDefaultToolkit().getImage("src/Chess/Images/" + color + p + ".png");
 				images.put(color + p, img.getScaledInstance(Chess.IMG_WIDTH, Chess.IMG_WIDTH, Image.SCALE_SMOOTH));
 			}
 		}

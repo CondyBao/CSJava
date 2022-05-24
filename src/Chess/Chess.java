@@ -1,5 +1,4 @@
 package Chess;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -47,8 +46,6 @@ public class Chess {
 		frame = new JFrame();
 		frame.setSize(WIDTH+2, WIDTH+24);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-
 		JPanel canvas = new JPanel() {
 			public void paint(Graphics g) {
 				board.draw(g, last_clicked);
